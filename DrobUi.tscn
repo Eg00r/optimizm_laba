@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://xrxmmtr8dfog"]
+
+[ext_resource type="Script" uid="uid://dsjppahlqxwut" path="res://DrobUi.cs" id="1_ip7mf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dqig5"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[node name="DrobUi" type="HBoxContainer" unique_id=1319797386]
+offset_right = 142.0
+offset_bottom = 66.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_ip7mf")
+
+[node name="Left" type="VBoxContainer" parent="." unique_id=674011558]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Plus" type="RichTextLabel" parent="Left" unique_id=1068293286]
+visible = false
+custom_minimum_size = Vector2(20, 23)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 10
+bbcode_enabled = true
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChendState" type="Button" parent="Left" unique_id=1080064957]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 10
+text = "-"
+
+[node name="Body" type="VBoxContainer" parent="." unique_id=21606997]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Top" type="LineEdit" parent="Body" unique_id=1070341374]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="Line" type="Panel" parent="Body" unique_id=1009811819]
+visible = false
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_dqig5")
+
+[node name="Down" type="LineEdit" parent="Body" unique_id=39127433]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="XLabel" type="RichTextLabel" parent="." unique_id=455476435]
+visible = false
+custom_minimum_size = Vector2(30, 34)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+bbcode_enabled = true
+vertical_alignment = 2
+
+[connection signal="pressed" from="Left/ChendState" to="." method="ChendStateButtonPressed"]
+[connection signal="text_changed" from="Body/Top" to="." method="TopTextChanged"]
+[connection signal="gui_input" from="Body/Down" to="." method="DownGuiInput"]

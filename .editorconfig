@@ -1,0 +1,8 @@
+root = true
+
+[*]
+charset = utf-8
+
+[*.{cs}]
+dotnet_diagnostic.IDE0090.severity = none
+dotnet_diagnostic.IDE0017.severity = none

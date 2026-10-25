@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Play",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "/home/egor/bin/Godot_v4.7-stable_mono_linux_x86_64/Godot_v4.7-stable_mono_linux.x86_64",
+             "args": [
+                "--remote-debug",
+                "tcp://127.0.0.1:6007"
+            ],
+            "cwd": "${workspaceFolder}",
+        },
+        {
+            "name": "Godot: Attach to Debugger",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:dotrush.pickProcess}"
+        }
+    ]
+        
+    
+}

@@ -1,0 +1,18 @@
+[gd_resource type="Theme" format=3 uid="uid://dss0r4fgoqec7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2l2q"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+skew = Vector2(1, 0)
+border_width_left = 10
+border_color = Color(0.75492954, 0.8642353, 2.3102762e-06, 1)
+border_blend = true
+
+[resource]
+LineEdit/constants/minimum_character_width = 3
+MenuBar/constants/h_separation = 10
+MenuBar/constants/outline_size = 0
+MenuBar/font_sizes/font_size = 16
+MenuBar/styles/normal = SubResource("StyleBoxFlat_a2l2q")
+TabContainer/constants/side_margin = 0
+TabContainer/constants/tab_separation = 4
