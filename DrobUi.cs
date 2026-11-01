@@ -133,6 +133,17 @@ public partial class DrobUi : HBoxContainer
 		}
 	}
 
+	public Drob toDrob(){
+		Drob drob ;
+		if(_currentState == StateEnum.Drob)
+			drob= new Drob(this.Top, this.Down);
+		else if(this.Top == null)
+			drob = new Drob(1,1);
+		else
+			drob = new Drob(this.Top);
+
+		return drob;
+	}
 
 	public void ChendgeView(long viewInd){
 		TableView = Convert.ToBoolean(viewInd);
@@ -200,7 +211,8 @@ public partial class DrobUi : HBoxContainer
 		}
 		else if (x_j == 16 && x_i > -1)
 		{
-			Plus.Text = "≥";
+			//Plus.Text = "≥";
+			Plus.Text = "=";
 		}
 
 

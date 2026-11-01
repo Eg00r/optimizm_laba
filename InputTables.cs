@@ -9,8 +9,8 @@ namespace MainNameSpace
 		VBoxContainer funcUi;
 
 		VBoxContainer tabl;
-		public int colPerm = 17;
-		public int colOgr = 16;
+		public uint colPerm = 17;
+		public uint colOgr = 16;
 
 		RichTextLabel[] xLine = new RichTextLabel[17];
 		public DrobUi[,] drobsTabl = new DrobUi[16, 17];
@@ -86,12 +86,12 @@ namespace MainNameSpace
 
 		public void CountOgrValueChanged(float newColOgr)
 		{
-			colOgr = (int)newColOgr;
+			colOgr = (uint)newColOgr;
 			for (int i = 0; i < colOgr; i++)
 			{
 				linesOfXs[i].Visible = true;
 			}
-			for (int i = colOgr; i < 16; i++)
+			for (uint i = colOgr; i < 16; i++)
 			{
 				linesOfXs[i].Visible = false;
 			}
@@ -138,7 +138,7 @@ namespace MainNameSpace
 				funchXLine[j].Visible = false;
 			}
 
-			colPerm = (int)newColPerm + 1;
+			colPerm = (uint)newColPerm + 1;
 		}
 
 		private static HBoxContainer GenXLine(RichTextLabel[] xLine)

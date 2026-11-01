@@ -73,8 +73,8 @@ public partial class MenuBarFile : PopupMenu
 
 class TaskSaveContaner
 {
-	public int colPerm = 1;
-	public int colOgr = 1;
+	public uint colPerm = 1;
+	public uint colOgr = 1;
 	public int taskType = 1;
 	
 	public (string, string)[] func = new (string, string)[17];
@@ -86,7 +86,7 @@ class TaskSaveContaner
 	{
 		colOgr = inputTables.colOgr;
 		colPerm = inputTables.colPerm;
-		FFF = 5678;
+		//FFF = 5678;
 		taskType = 99;
 
 		for (int j = 0; j < 17; j++)
