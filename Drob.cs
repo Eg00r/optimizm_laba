@@ -86,6 +86,7 @@ public class Drob
 
         str = str.Trim();
         if (str == "")
+            return;
             
 
         if (BigInteger.TryParse(str, out this.top))

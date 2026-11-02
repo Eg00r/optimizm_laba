@@ -91,7 +91,7 @@ class SimpTabel
     {
         List<(uint strk, uint stlb)> ret = new List<(uint strk, uint stlb)>();
 
-        for (uint j = 0; j < tabl.colPerm; j++)
+        for (uint j = 0; j < tabl.colPerm-1; j++)
         {
             if (tabl.tabl[tabl.colOgr - 1, j] < Drob.Zero)
             {

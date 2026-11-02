@@ -81,10 +81,9 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+current_tab = 0
 
 [node name="Условия" type="Control" parent="Panel/VBoxContainer/TabCon" unique_id=568991286]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -252,6 +251,7 @@ unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Решение" type="Control" parent="Panel/VBoxContainer/TabCon" unique_id=1976805932]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
