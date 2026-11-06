@@ -19,7 +19,7 @@ public partial class MenuBarFile : PopupMenu
 			GetTree().Quit(-1);
 			return;
 		}
-
+		GD.Print(this.Name);
 		CallDeferred(nameof(InitAtEndOfFrame));
 	}
 
@@ -33,7 +33,7 @@ public partial class MenuBarFile : PopupMenu
 	{
 	}
 
-	public void IndexPressed(int ind)
+	public void FileMenuSelected(int ind)
 	{
 		switch (ind)
 		{

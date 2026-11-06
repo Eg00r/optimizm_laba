@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://c7qxqidbp1lqs" path="res://MenuBarFile.cs" id="3_8mm7a"]
 [ext_resource type="Script" uid="uid://ddgl0xmh88np3" path="res://TaskType.cs" id="3_gyfs4"]
 [ext_resource type="Script" uid="uid://bbv4cfeqy78ep" path="res://ViewModeButton.cs" id="4_d5x1h"]
-[ext_resource type="Script" uid="uid://b0dwkt2vvsfbd" path="res://AnserTabel.cs" id="6_hq1ik"]
+[ext_resource type="Script" uid="uid://b0dwkt2vvsfbd" path="res://AnswerTabel.cs" id="6_hq1ik"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5fh0q"]
 bg_color = Color(0.9490196, 0.6156863, 0.33333334, 1)
@@ -81,9 +81,10 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 0
+current_tab = 1
 
 [node name="Условия" type="Control" parent="Panel/VBoxContainer/TabCon" unique_id=568991286]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -250,12 +251,11 @@ fit_content = true
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Решение" type="Control" parent="Panel/VBoxContainer/TabCon" unique_id=1976805932]
-visible = false
+[node name="Иск Баз Симплекс" type="Control" parent="Panel/VBoxContainer/TabCon" unique_id=1976805932]
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/TabCon/Решение" unique_id=742337044]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/TabCon/Иск Баз Симплекс" unique_id=742337044]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -265,51 +265,56 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/TabCon/Решение/VBoxContainer" unique_id=810305407]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/TabCon/Иск Баз Симплекс/VBoxContainer" unique_id=810305407]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Button" type="Button" parent="Panel/VBoxContainer/TabCon/Решение/VBoxContainer/HBoxContainer" unique_id=264162587]
+[node name="Button" type="Button" parent="Panel/VBoxContainer/TabCon/Иск Баз Симплекс/VBoxContainer/HBoxContainer" unique_id=264162587]
 layout_mode = 2
 text = "<-Туда"
 
-[node name="пробел" type="Control" parent="Panel/VBoxContainer/TabCon/Решение/VBoxContainer/HBoxContainer" unique_id=374777941]
+[node name="пробел" type="Control" parent="Panel/VBoxContainer/TabCon/Иск Баз Симплекс/VBoxContainer/HBoxContainer" unique_id=374777941]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="OptionButton" type="OptionButton" parent="Panel/VBoxContainer/TabCon/Решение/VBoxContainer/HBoxContainer" unique_id=313683356]
+[node name="OptionButton" type="OptionButton" parent="Panel/VBoxContainer/TabCon/Иск Баз Симплекс/VBoxContainer/HBoxContainer" unique_id=313683356]
 layout_mode = 2
 
-[node name="пробел2" type="Control" parent="Panel/VBoxContainer/TabCon/Решение/VBoxContainer/HBoxContainer" unique_id=1560371522]
+[node name="пробел2" type="Control" parent="Panel/VBoxContainer/TabCon/Иск Баз Симплекс/VBoxContainer/HBoxContainer" unique_id=1560371522]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button2" type="Button" parent="Panel/VBoxContainer/TabCon/Решение/VBoxContainer/HBoxContainer" unique_id=1798097480]
+[node name="Button2" type="Button" parent="Panel/VBoxContainer/TabCon/Иск Баз Симплекс/VBoxContainer/HBoxContainer" unique_id=1798097480]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "Сюда->"
 
-[node name="PanelContainer" type="PanelContainer" parent="Panel/VBoxContainer/TabCon/Решение/VBoxContainer" unique_id=40372561]
+[node name="PanelContainer" type="PanelContainer" parent="Panel/VBoxContainer/TabCon/Иск Баз Симплекс/VBoxContainer" unique_id=40372561]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/TabCon/Решение/VBoxContainer/PanelContainer" unique_id=1885615460]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/TabCon/Иск Баз Симплекс/VBoxContainer/PanelContainer" unique_id=1885615460]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="AnserTabel" type="VBoxContainer" parent="Panel/VBoxContainer/TabCon/Решение/VBoxContainer/PanelContainer/ScrollContainer" unique_id=1600164005]
+[node name="AnswerTabel" type="VBoxContainer" parent="Panel/VBoxContainer/TabCon/Иск Баз Симплекс/VBoxContainer/PanelContainer/ScrollContainer" unique_id=1600164005]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("6_hq1ik")
 
-[node name="Status" type="Label" parent="Panel/VBoxContainer/TabCon/Решение/VBoxContainer/PanelContainer/ScrollContainer/AnserTabel" unique_id=1463848606]
+[node name="Status" type="Label" parent="Panel/VBoxContainer/TabCon/Иск Баз Симплекс/VBoxContainer/PanelContainer/ScrollContainer/AnswerTabel" unique_id=1463848606]
 layout_mode = 2
 horizontal_alignment = 1
 
-[connection signal="index_pressed" from="Panel/VBoxContainer/MenuBar/Файл" to="Panel/VBoxContainer/MenuBar/Файл" method="IndexPressed"]
+[node name="AnswerGrid" type="GridContainer" parent="Panel/VBoxContainer/TabCon/Иск Баз Симплекс/VBoxContainer/PanelContainer/ScrollContainer/AnswerTabel" unique_id=1331221131]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 17
+
+[connection signal="index_pressed" from="Panel/VBoxContainer/MenuBar/Файл" to="Panel/VBoxContainer/MenuBar/Файл" method="FileMenuSelected"]
 [connection signal="file_selected" from="Panel/VBoxContainer/MenuBar/Файл/FileDialog" to="Panel/VBoxContainer/MenuBar/Файл" method="FileSelected"]
-[connection signal="item_selected" from="Panel/VBoxContainer/TabCon/Условия/HSplitContainer/ScrollContainer/VBoxContainer/PanelContainer4/VBoxContainer/TaskType" to="Panel/VBoxContainer/TabCon/Условия/HSplitContainer/ScrollContainer/VBoxContainer/PanelContainer4/VBoxContainer/TaskType" method="ItemSelected"]
+[connection signal="item_selected" from="Panel/VBoxContainer/TabCon/Условия/HSplitContainer/ScrollContainer/VBoxContainer/PanelContainer4/VBoxContainer/TaskType" to="Panel/VBoxContainer/TabCon/Условия/HSplitContainer/ScrollContainer/VBoxContainer/PanelContainer4/VBoxContainer/TaskType" method="TaskTypeSelected"]
 [connection signal="value_changed" from="Panel/VBoxContainer/TabCon/Условия/HSplitContainer/ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer/CountPermLineEdit" to="Panel/VBoxContainer/TabCon/Условия/HSplitContainer/InputTables" method="CountPermValueChanged"]
 [connection signal="value_changed" from="Panel/VBoxContainer/TabCon/Условия/HSplitContainer/ScrollContainer/VBoxContainer/PanelContainer2/VBoxContainer/CountOgrLineEdit" to="Panel/VBoxContainer/TabCon/Условия/HSplitContainer/InputTables" method="CountOgrValueChanged"]
 [connection signal="item_selected" from="Panel/VBoxContainer/TabCon/Условия/HSplitContainer/ScrollContainer/VBoxContainer/ViewMode/VBoxContainer/ViewModeButton" to="Panel/VBoxContainer/TabCon/Условия/HSplitContainer/ScrollContainer/VBoxContainer/ViewMode/VBoxContainer/ViewModeButton" method="ViewSelected"]
-[connection signal="pressed" from="Panel/VBoxContainer/TabCon/Условия/HSplitContainer/ScrollContainer/VBoxContainer/Button" to="Panel/VBoxContainer/TabCon/Решение/VBoxContainer/PanelContainer/ScrollContainer/AnserTabel" method="Start"]
+[connection signal="pressed" from="Panel/VBoxContainer/TabCon/Условия/HSplitContainer/ScrollContainer/VBoxContainer/Button" to="Panel/VBoxContainer/TabCon/Иск Баз Симплекс/VBoxContainer/PanelContainer/ScrollContainer/AnswerTabel" method="Start"]

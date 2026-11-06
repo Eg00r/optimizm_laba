@@ -18,7 +18,7 @@ public partial class TaskType : OptionButton
 	{
 	}
 
-	public void ItemSelected(int ind){
+	public void TaskTypeSelected(int ind){
 		if(ind == 0){
 			CountPermLineEdit.MaxValue = 2;
 		}else{

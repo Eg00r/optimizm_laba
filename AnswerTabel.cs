@@ -4,7 +4,7 @@ using System.Linq;
 using Godot;
 using MainNameSpace;
 
-public partial class AnserTabel : VBoxContainer
+public partial class AnswerTabel : VBoxContainer
 {
 	List<SimpTabel> tabels;
 	uint currentTabl = 0;
@@ -13,6 +13,8 @@ public partial class AnserTabel : VBoxContainer
 	Label status;
 
 	DrobTable[,] drobTablesUI = new DrobTable[17, 17];
+
+	GridContainer anserGrid;
 
 	enum SolveState
 	{
@@ -24,23 +26,26 @@ public partial class AnserTabel : VBoxContainer
 
 	public override void _Ready()
 	{
+		//GD.Print("\n\n\n0_0\n\n\n\n");
+		anserGrid = GetNode<GridContainer>("AnswerGrid");
+		anserGrid.Columns = 17;
 
 		PackedScene drobTabel_scene = ResourceLoader.Load<PackedScene>("res://DrobTable.tscn");
 
 		for (uint i = 0; i < 17; i++)
 		{
-			HBoxContainer line = new HBoxContainer();
+			//HBoxContainer line = new HBoxContainer();
 			for (uint j = 0; j < 17; j++)
 			{
 				DrobTable drobTable = drobTabel_scene.Instantiate<DrobTable>();
 				drobTable.i = i;
 				drobTable.j = j;
 				//drobTable.Visible = false;
-				line.AddChild(drobTable);
-
+				//line.AddChild(drobTable);
+				anserGrid.AddChild(drobTable);
 				drobTablesUI[i, j] = drobTable;
 			}
-			this.AddChild(line);
+			//anserGrid.AddChild(line);
 		}
 
 		inputTables = GetNode<InputTables>("%InputTables");
@@ -51,7 +56,7 @@ public partial class AnserTabel : VBoxContainer
 	public void Start()
 	{
 		tabels = new List<SimpTabel>();
-currentTabl = 0;
+		currentTabl = 0;
 
 		status.Text = "Статус: решение вспомогательной задачи. Шаг 0";
 		SimpTabel vspomog = new SimpTabel();
@@ -92,7 +97,7 @@ currentTabl = 0;
 		vspomog.bazPerm = new uint[vspomog.colOgr];
 		for (uint i = 1; i <= vspomog.colOgr; i++)
 		{
-			vspomog.freePerm[i - 1] = i;
+			vspomog.bazPerm[i - 1] = i;
 		}
 
 		vspomog.step = 0;
@@ -103,6 +108,7 @@ currentTabl = 0;
 
 	private bool TableShow(SimpTabel tbl)
 	{
+		anserGrid.Columns = (int)tbl.colPerm;
 		for (uint i = 0; i < 17; i++)
 		{
 			for (uint j = 0; j < 17; j++)
