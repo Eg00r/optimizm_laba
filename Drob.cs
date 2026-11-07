@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Formats.Asn1;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Numerics;
 using System.Runtime.InteropServices;
 //using Godot;
@@ -11,7 +12,8 @@ using System.Runtime.InteropServices;
 public class Drob
 {
     public static Drob Zero = new Drob(0, 1);
-
+    
+    private bool is_sokr = false;
     private BigInteger top = 0;
     private BigInteger down = 1;
 
@@ -19,7 +21,8 @@ public class Drob
     {
         get
         {
-            NormZnak();
+            //NormZnak();
+            Sokr();
             return top;
         }
         set
@@ -32,7 +35,8 @@ public class Drob
     {
         get
         {
-            NormZnak();
+            //NormZnak();
+            Sokr();
             return down;
         }
         set
@@ -217,11 +221,17 @@ public class Drob
 
     public void Sokr()
     {
-        NormZnak();
-
+        if(is_sokr == true)
+            return;
+        
+        NormZnak();  
+       // if(top == 0) {down = 1; return;}
+       
         BigInteger del = Gcd(top, down);
         top /= del;
         down /= del;
+
+        is_sokr = true;
     }
 
     public void NormZnak()
@@ -254,11 +264,14 @@ public class Drob
         a = BigInteger.Abs(a);
         b = BigInteger.Abs(b);
 
-        while (b != 0)
+        if(a < b) {
+            (b, a) = (a, b);
+        }
+
+        while (b > 0)
         {
-            BigInteger temp = b;
-            b = a % b;
-            a = temp;
+            a %= b;
+            (b, a) = (a, b);
         }
 
         return a;
@@ -285,6 +298,8 @@ public class Drob
             ret.down = l.down * r.down;
         }
 
+        if(ret.top == 0) {ret.down = 1;}
+        ret.is_sokr = false;
         return ret;
     }
 
@@ -303,6 +318,8 @@ public class Drob
             ret.down = l.down * r.down;
         }
 
+        if(ret.top == 0) {ret.down = 1;}
+        ret.is_sokr = false;
         return ret;
     }
 
@@ -313,6 +330,8 @@ public class Drob
         ret.top = l.top * r.top;
         ret.down = l.down * r.down;
 
+        if(ret.top == 0) {ret.down = 1;}
+        ret.is_sokr = false;
         return ret;
     }
 
@@ -339,6 +358,8 @@ public class Drob
             ret.down = l.down * r.top;
         }
 
+        if(ret.top == 0) {ret.down = 1;}
+        ret.is_sokr = false;
         return ret;
     }
 

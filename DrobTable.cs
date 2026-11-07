@@ -1,37 +1,35 @@
-using Godot;
 using System;
+using Godot;
 
 public partial class DrobTable : PanelContainer
 {
 	public uint i = 0;
 	public uint j = 0;
+
 	private bool _isOpor = false;
-	public bool isOpor{
-		get{
-			return _isOpor;
-		}
-		set{
+	public bool IsOpor
+	{
+		get { return _isOpor; }
+		set
+		{
 			_isOpor = value;
-			if(value){
-
+			if (value)
 				this.AddThemeStyleboxOverride("panel", opor);
-				}
-			else{
-
+			else
 				this.AddThemeStyleboxOverride("panel", norm);
-				}
 		}
 	}
+
 	public AnswerTabel mother;
 	public Label top;
-	public Label down; 
-	
+	public Label down;
+
 	private bool _visible = true;
-	public bool VisibleAll{
-		get{
-			return _visible;
-		}
-		set{
+	public bool VisibleAll
+	{
+		get { return _visible; }
+		set
+		{
 			_visible = value;
 			top.Visible = value;
 			down.Visible = value;
@@ -41,17 +39,25 @@ public partial class DrobTable : PanelContainer
 		}
 	}
 
-	StyleBoxFlat opor ;
-StyleBoxFlat norm ;
-
+	private StyleBoxFlat opor;
+	private StyleBoxFlat norm;
 	private VBoxContainer hBox;
 	private Panel line;
-	// Called when the node enters the scene tree for the first time.
+
+
+	private enum DrobUIStatus
+	{
+		Line,
+		Drob
+	}
+	private DrobUIStatus _drobUIStatus = DrobUIStatus.Line;
+
+
 	public override void _Ready()
 	{
-
-		 opor = ResourceLoader.Load<StyleBoxFlat>("res://DrobTabelOpor_StyleBoxFlat.tres");
-		 norm = ResourceLoader.Load<StyleBoxFlat>("res://DrobTabelNorm_StyleBoxFlat.tres");
+		opor = ResourceLoader.Load<StyleBoxFlat>("uid://c7tk1ohbwsi75");
+		norm = ResourceLoader.Load<StyleBoxFlat>("uid://dnr14aka3jxof");
+		
 		mother = GetNode<AnswerTabel>("../..");
 		top = GetNode<Label>("HBox/Top");
 		down = GetNode<Label>("HBox/Down");
@@ -59,30 +65,39 @@ StyleBoxFlat norm ;
 		line = GetNode<Panel>("HBox/Line");
 	}
 
-	public void Set(Drob d){
+	public void Set(Drob d)
+	{
 		top.Text = d.Top.ToString();
 		down.Text = d.Down.ToString();
 
-		this.Size = new Vector2(Math.Max(top.Size.X, down.Size.X) , this.Size.Y);
-		GD.Print($"{i} {j} :" + top.Size.X + " " + down.Size.X + " " + this.Size + "\n");
-
-		CallDeferred(nameof(after));
+		if (d.Down == 1)
+		{
+			this._drobUIStatus = DrobUIStatus.Line;
+			down.Visible = false;
+			line.Visible = false;
+		}
+		else
+		{
+			this._drobUIStatus = DrobUIStatus.Drob;
+			if (_visible)
+			{
+				down.Visible = true;
+				line.Visible = true;
+			}
+		}
 	}
 
-	public void after(){
-		this.Size = new Vector2(Math.Max(top.Size.X, down.Size.X) , this.Size.Y);
-		GD.Print($"AFTER {i} {j} :" + top.Size.X + " " + top.Size.Y + " " + this.Size + "\n");
-	}
-
-	public void OnGuiInput(InputEvent ev){
-		if(ev is not InputEventMouseButton)
+	public void OnGuiInput(InputEvent ev)
+	{
+		if (ev is not InputEventMouseButton)
 			return;
 
-		InputEventMouseButton ev_mouse = (InputEventMouseButton)ev ;
+		InputEventMouseButton ev_mouse = (InputEventMouseButton)ev;
 
-		if(ev_mouse.ButtonIndex == MouseButton.Left && ev_mouse.IsReleased()){
+		if (ev_mouse.ButtonIndex == MouseButton.Left && ev_mouse.IsReleased())
+		{
 			GD.Print($"нажали {i},{j}");
-			if(isOpor)
+			if (IsOpor)
 				mother.CellSelected(i, j);
 		}
 	}

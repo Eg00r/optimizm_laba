@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://o2qkaxddpbun"]
 
 [ext_resource type="Script" uid="uid://b0ii8e6jnkdig" path="res://DrobTable.cs" id="1_dskhx"]
-[ext_resource type="StyleBox" uid="uid://dnr14aka3jxof" path="res://DrobTabelNorm_StyleBoxFlat.tres" id="1_lxmo3"]
+[ext_resource type="StyleBox" uid="uid://dnr14aka3jxof" path="res://Thems/DrobTabelNorm_StyleBoxFlat.tres" id="1_lxmo3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rq1li"]
 bg_color = Color(0, 0, 0, 1)
@@ -11,7 +11,6 @@ border_width_right = 1
 border_width_bottom = 1
 
 [node name="DrobTable" type="PanelContainer" unique_id=893430407]
-custom_minimum_size = Vector2(58, 74)
 offset_top = 76.0
 offset_right = 1152.0
 offset_bottom = 648.0
@@ -27,7 +26,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Top" type="Label" parent="HBox" unique_id=1387289523]
-custom_minimum_size = Vector2(58, 30)
 layout_mode = 2
 horizontal_alignment = 1
 
@@ -38,7 +36,6 @@ size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_rq1li")
 
 [node name="Down" type="Label" parent="HBox" unique_id=1731273500]
-custom_minimum_size = Vector2(58, 30)
 layout_mode = 2
 horizontal_alignment = 1
 
