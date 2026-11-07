@@ -4,8 +4,7 @@ using System.Linq;
 using Godot;
 using MainNameSpace;
 
-public partial class AnswerTabel : VBoxContainer
-{
+public partial class AnswerTabel : VBoxContainer {
 	List<SimpTabel> tabels;
 	uint currentTabl = 0;
 
@@ -20,16 +19,14 @@ public partial class AnswerTabel : VBoxContainer
 	Label counterUI = new Label();
 	GridContainer anserGrid;
 
-	enum SolveState
-	{
+	enum SolveState {
 		Vspomog,
 		Osnov
 	}
 
 	SolveState solveState = SolveState.Vspomog;
 
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		//GD.Print("\n\n\n0_0\n\n\n\n");
 		anserGrid = GetNode<GridContainer>("AnswerGrid");
 		anserGrid.Columns = 18;
@@ -41,11 +38,9 @@ public partial class AnswerTabel : VBoxContainer
 
 		GenXLine(1, 16, freePermUI);
 
-		for (uint i = 0; i < 17; i++)
-		{
+		for (uint i = 0; i < 17; i++) {
 			//HBoxContainer line = new HBoxContainer();
-			for (uint j = 0; j < 17; j++)
-			{
+			for (uint j = 0; j < 17; j++) {
 				DrobTable drobTable = drobTabel_scene.Instantiate<DrobTable>();
 				drobTable.i = i;
 				drobTable.j = j;
@@ -58,8 +53,7 @@ public partial class AnswerTabel : VBoxContainer
 		}
 
 		GenXLine(17, 32, bazPermUI, "1D40F");
-		for (int i = 0; i < 17; i++)
-		{
+		for (int i = 0; i < 17; i++) {
 			anserGrid.MoveChild(bazPermUI[i], 18 + 18 * i);
 		}
 
@@ -68,8 +62,7 @@ public partial class AnswerTabel : VBoxContainer
 		status.Text = "Статус: нету";
 	}
 
-	private static string GenTextXi(uint i)
-	{
+	private static string GenTextXi(uint i) {
 		string ret = "[i][char=1D4B3][char=";
 
 		uint unicode_char = 2080;
@@ -78,22 +71,18 @@ public partial class AnswerTabel : VBoxContainer
 
 		uint scnd = (i / 10) % 10 + unicode_char;
 
-		if (i >= 10)
-		{
+		if (i >= 10) {
 			ret += $"{scnd}][char={frst}][/i]";
 		}
-		else
-		{
+		else {
 			ret += frst + "][/i]";
 		}
 
 		return ret;
 	}
 
-	private void GenXLine(int i_form, int i_to, RichTextLabel[] permsUI, string b_code = "1D6C3")
-	{
-		for (int i = i_form, permsUI_ind = 0; i <= i_to && permsUI_ind < permsUI.Length; i++, permsUI_ind++)
-		{
+	private void GenXLine(int i_form, int i_to, RichTextLabel[] permsUI, string b_code = "1D6C3") {
+		for (int i = i_form, permsUI_ind = 0; i <= i_to && permsUI_ind < permsUI.Length; i++, permsUI_ind++) {
 			RichTextLabel x_i = new RichTextLabel();
 			x_i.BbcodeEnabled = true;
 			x_i.Text = GenTextXi((uint)i);
@@ -114,8 +103,7 @@ public partial class AnswerTabel : VBoxContainer
 	}
 
 
-	public void Start()
-	{
+	public void Start() {
 		tabels = new List<SimpTabel>();
 		currentTabl = 0;
 		solveState = SolveState.Vspomog;
@@ -123,43 +111,35 @@ public partial class AnswerTabel : VBoxContainer
 		status.Text = "Статус: решение вспомогательной задачи. Шаг 0";
 		SimpTabel vspomog = new SimpTabel(inputTables.colPerm, inputTables.colOgr + 1);
 
-		for (int i = 0; i < inputTables.colOgr; i++)
-		{
-			for (int j = 0; j < inputTables.colPerm - 1; j++)
-			{
+		for (int i = 0; i < inputTables.colOgr; i++) {
+			for (int j = 0; j < inputTables.colPerm - 1; j++) {
 				vspomog.tabl[i, j] = inputTables.drobsTabl[i, j].toDrob();
 			}
 		}
 
-		for (int i = 0; i < inputTables.colOgr; i++)
-		{
+		for (int i = 0; i < inputTables.colOgr; i++) {
 			vspomog.tabl[i, inputTables.colPerm - 1] = inputTables.drobsTabl[i, 16].toDrob();
 		}
 
-		SimpTabel.InitVspomogLastLine(vspomog);		
+		SimpTabel.InitVspomogLastLine(vspomog);
 
 		tabels.Add(vspomog);
 		TableShow(vspomog);
 	}
 
-	private bool TableShow(SimpTabel tbl)
-	{
+	private bool TableShow(SimpTabel tbl) {
 		counterUI.Text = tbl.step.ToString();
 
 		anserGrid.Columns = (int)tbl.colPerm + 1;
-		for (uint i = 0; i < 17; i++)
-		{
-			for (uint j = 0; j < 17; j++)
-			{
+		for (uint i = 0; i < 17; i++) {
+			for (uint j = 0; j < 17; j++) {
 				drobTablesUI[i, j].VisibleAll = false;
 				drobTablesUI[i, j].IsOpor = false;
 			}
 		}
 
-		for (uint i = 0; i < tbl.colOgr; i++)
-		{
-			for (uint j = 0; j < tbl.colPerm; j++)
-			{
+		for (uint i = 0; i < tbl.colOgr; i++) {
+			for (uint j = 0; j < tbl.colPerm; j++) {
 				drobTablesUI[i, j].VisibleAll = true;
 
 				drobTablesUI[i, j].Set(tbl.tabl[i, j]);
@@ -167,33 +147,28 @@ public partial class AnswerTabel : VBoxContainer
 		}
 
 		(uint strk, uint stlb)[] oprs = SimpTabel.SimplOporns(tbl);
-		foreach ((uint strk, uint stlb) in oprs)
-		{
+		foreach ((uint strk, uint stlb) in oprs) {
 			drobTablesUI[strk, stlb].IsOpor = true;
 		}
 
 
-		for (int i = tbl.freePerm.Length - 1; i < freePermUI.Length-1; i++)
-		{
+		for (int i = tbl.freePerm.Length - 1; i < freePermUI.Length - 1; i++) {
 			freePermUI[i].Visible = false;
 		}
-		
-		for (int i = tbl.bazPerm.Length - 1; i < bazPermUI.Length; i++)
-		{
+
+		for (int i = tbl.bazPerm.Length - 1; i < bazPermUI.Length; i++) {
 			bazPermUI[i].Visible = false;
 		}
 
-		for (uint i = 0; i < tbl.bazPerm.Length - 1; i++)
-		{
+		for (uint i = 0; i < tbl.bazPerm.Length - 1; i++) {
 			bazPermUI[i].Visible = true;
 			bazPermUI[i].Text = GenTextXi(tbl.bazPerm[i]);
 		}
 		//P`шка
-		bazPermUI[tbl.bazPerm.Length -1].Visible = true;
-		bazPermUI[tbl.bazPerm.Length -1].Text = $"[i][char=1D40F][/i]";
+		bazPermUI[tbl.bazPerm.Length - 1].Visible = true;
+		bazPermUI[tbl.bazPerm.Length - 1].Text = $"[i][char=1D40F][/i]";
 
-		for (uint i = 0; i < tbl.freePerm.Length-1; i++)
-		{
+		for (uint i = 0; i < tbl.freePerm.Length - 1; i++) {
 			freePermUI[i].Visible = true;
 			freePermUI[i].Text = GenTextXi(tbl.freePerm[i]);
 		}
@@ -201,40 +176,32 @@ public partial class AnswerTabel : VBoxContainer
 		return oprs.Length == 0;
 	}
 
-	public void CellSelected(uint i, uint j)
-	{
+	public void CellSelected(uint i, uint j) {
 		SimpTabel sledTabel = SimpTabel.SimplStep(tabels[(int)currentTabl], i, j);
 		currentTabl++;
 		tabels.Add(sledTabel);
-		if (solveState == SolveState.Vspomog)
-		{
-			if (TableShow(sledTabel))
-			{
+		if (solveState == SolveState.Vspomog) {
+			if (TableShow(sledTabel)) {
 				solveState = SolveState.Osnov;
 
-				if (sledTabel.tabl[sledTabel.colOgr - 1, sledTabel.colPerm - 1] < 0)
-				{
+				if (sledTabel.tabl[sledTabel.colOgr - 1, sledTabel.colPerm - 1] < 0) {
 					status.Text = $"Статус: Исходная система несовместна";
 					return;
 				}
-				else if (sledTabel.tabl[sledTabel.colOgr - 1, sledTabel.colPerm - 1] == 0)
-				{
+				else if (sledTabel.tabl[sledTabel.colOgr - 1, sledTabel.colPerm - 1] == 0) {
 					status.Text = $"Статус: Вспомогательная решена";
 				}
 
-				for (uint _i = 0; _i < 17; _i++)
-				{
+				for (uint _i = 0; _i < 17; _i++) {
 					for (uint _j = 0; _j < 17; _j++)
 						drobTablesUI[_i, _j].IsOpor = true;
 				}
 			}
-			else
-			{
+			else {
 				status.Text = $"Статус: решение вспомогательной задачи. Шаг {sledTabel.step}";
 			}
 		}
-		else
-		{
+		else {
 			status.Text = $"Статус: решение основной задачи. Шаг 0";
 
 		}

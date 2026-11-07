@@ -1,17 +1,14 @@
 using System;
 using Godot;
 
-public partial class DrobTable : PanelContainer
-{
+public partial class DrobTable : PanelContainer {
 	public uint i = 0;
 	public uint j = 0;
 
 	private bool _isOpor = false;
-	public bool IsOpor
-	{
+	public bool IsOpor {
 		get { return _isOpor; }
-		set
-		{
+		set {
 			_isOpor = value;
 			if (value)
 				this.AddThemeStyleboxOverride("panel", opor);
@@ -25,11 +22,9 @@ public partial class DrobTable : PanelContainer
 	public Label down;
 
 	private bool _visible = true;
-	public bool VisibleAll
-	{
+	public bool VisibleAll {
 		get { return _visible; }
-		set
-		{
+		set {
 			_visible = value;
 			top.Visible = value;
 			down.Visible = value;
@@ -45,19 +40,17 @@ public partial class DrobTable : PanelContainer
 	private Panel line;
 
 
-	private enum DrobUIStatus
-	{
+	private enum DrobUIStatus {
 		Line,
 		Drob
 	}
 	private DrobUIStatus _drobUIStatus = DrobUIStatus.Line;
 
 
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		opor = ResourceLoader.Load<StyleBoxFlat>("uid://c7tk1ohbwsi75");
 		norm = ResourceLoader.Load<StyleBoxFlat>("uid://dnr14aka3jxof");
-		
+
 		mother = GetNode<AnswerTabel>("../..");
 		top = GetNode<Label>("HBox/Top");
 		down = GetNode<Label>("HBox/Down");
@@ -65,37 +58,31 @@ public partial class DrobTable : PanelContainer
 		line = GetNode<Panel>("HBox/Line");
 	}
 
-	public void Set(Drob d)
-	{
+	public void Set(Drob d) {
 		top.Text = d.Top.ToString();
 		down.Text = d.Down.ToString();
 
-		if (d.Down == 1)
-		{
+		if (d.Down == 1) {
 			this._drobUIStatus = DrobUIStatus.Line;
 			down.Visible = false;
 			line.Visible = false;
 		}
-		else
-		{
+		else {
 			this._drobUIStatus = DrobUIStatus.Drob;
-			if (_visible)
-			{
+			if (_visible) {
 				down.Visible = true;
 				line.Visible = true;
 			}
 		}
 	}
 
-	public void OnGuiInput(InputEvent ev)
-	{
+	public void OnGuiInput(InputEvent ev) {
 		if (ev is not InputEventMouseButton)
 			return;
 
 		InputEventMouseButton ev_mouse = (InputEventMouseButton)ev;
 
-		if (ev_mouse.ButtonIndex == MouseButton.Left && ev_mouse.IsReleased())
-		{
+		if (ev_mouse.ButtonIndex == MouseButton.Left && ev_mouse.IsReleased()) {
 			GD.Print($"нажали {i},{j}");
 			if (IsOpor)
 				mother.CellSelected(i, j);

@@ -1,11 +1,9 @@
 using Godot;
 
-namespace MainNameSpace
-{
+namespace MainNameSpace {
 
-//Table Input
-	public partial class InputTables : Control
-	{
+	//Table Input
+	public partial class InputTables : Control {
 		VBoxContainer funcUi;
 
 		VBoxContainer tabl;
@@ -22,13 +20,11 @@ namespace MainNameSpace
 
 
 		// Called when the node enters the scene tree for the first time.
-		public override void _Ready()
-		{
+		public override void _Ready() {
 			tabl = GetNodeOrNull<VBoxContainer>("%Tabl");
 			funcUi = GetNodeOrNull<VBoxContainer>("%Function");
 
-			if (tabl == null || funcUi == null)
-			{
+			if (tabl == null || funcUi == null) {
 				OS.Alert("ПрАизоЩла критичская оЩибка аАаАа!!!!\n Ctical eroor was hapend! aaaa!!!!");
 				GD.Print("ПрАизоЩла критичская оЩибка аАаАа!!!!\n Ctical eroor was hapend! aaaa!!!!");
 				GetTree().Quit(-1);
@@ -49,8 +45,7 @@ namespace MainNameSpace
 			funcUi.MoveChild(generdFuncXLine, 0);
 
 			HBoxContainer funcLine = new HBoxContainer();
-			for (int j = 0; j < 17; j++)
-			{
+			for (int j = 0; j < 17; j++) {
 				DrobUi newDrob = drob_scene.Instantiate<DrobUi>();
 				func[j] = newDrob;
 				newDrob.X_J = j;
@@ -60,12 +55,10 @@ namespace MainNameSpace
 			}
 			funcUi.GetNode("FuncXLine").AddChild(funcLine);
 
-			for (int i = 0; i < 16; i++)
-			{
+			for (int i = 0; i < 16; i++) {
 				HBoxContainer line = new HBoxContainer();
 				linesOfXs[i] = line;
-				for (int j = 0; j < 17; j++)
-				{
+				for (int j = 0; j < 17; j++) {
 					DrobUi newDrob = drob_scene.Instantiate<DrobUi>();
 					drobsTabl[i, j] = newDrob;
 					newDrob.X_J = j;
@@ -78,62 +71,49 @@ namespace MainNameSpace
 		}
 
 		// Called every frame. 'delta' is the elapsed time since the previous frame.
-		public override void _Process(double delta)
-		{
+		public override void _Process(double delta) {
 			//GD.Print("Hello from C# to Godot :)");
 
 		}
 
-		public void CountOgrValueChanged(float newColOgr)
-		{
+		public void CountOgrValueChanged(float newColOgr) {
 			colOgr = (uint)newColOgr;
-			for (int i = 0; i < colOgr; i++)
-			{
+			for (int i = 0; i < colOgr; i++) {
 				linesOfXs[i].Visible = true;
 			}
-			for (uint i = colOgr; i < 16; i++)
-			{
+			for (uint i = colOgr; i < 16; i++) {
 				linesOfXs[i].Visible = false;
 			}
 		}
 
-		public void CountPermValueChanged(float newColPerm)
-		{
-			for (int i = 0; i < 16; i++)
-			{
-				for (int j = 0; j < (int)newColPerm; j++)
-				{
+		public void CountPermValueChanged(float newColPerm) {
+			for (int i = 0; i < 16; i++) {
+				for (int j = 0; j < (int)newColPerm; j++) {
 					drobsTabl[i, j].Visible = true;
 				}
 			}
 
-			for (int i = 0; i < 16; i++)
-			{
-				for (int j = (int)newColPerm; j < 16; j++)
-				{
+			for (int i = 0; i < 16; i++) {
+				for (int j = (int)newColPerm; j < 16; j++) {
 					drobsTabl[i, j].Visible = false;
 				}
 			}
 
-			for (int j = 0; j < (int)newColPerm; j++)
-			{
+			for (int j = 0; j < (int)newColPerm; j++) {
 				xLine[j].Visible = true;
 			}
 
-			for (int j = (int)newColPerm; j < 16; j++)
-			{
+			for (int j = (int)newColPerm; j < 16; j++) {
 				xLine[j].Visible = false;
 			}
 
 
-			for (int j = 0; j < (int)newColPerm; j++)
-			{
+			for (int j = 0; j < (int)newColPerm; j++) {
 				func[j].Visible = true;
 				funchXLine[j].Visible = true;
 			}
 
-			for (int j =  (int)newColPerm; j < 16; j++)
-			{
+			for (int j = (int)newColPerm; j < 16; j++) {
 				func[j].Visible = false;
 				funchXLine[j].Visible = false;
 			}
@@ -141,24 +121,20 @@ namespace MainNameSpace
 			colPerm = (uint)newColPerm + 1;
 		}
 
-		private static HBoxContainer GenXLine(RichTextLabel[] xLine)
-		{
+		private static HBoxContainer GenXLine(RichTextLabel[] xLine) {
 			HBoxContainer xs_line = new HBoxContainer();
-			for (int i = 0; i < 16; i++)
-			{
+			for (int i = 0; i < 16; i++) {
 				RichTextLabel x_i = new RichTextLabel();
 				x_i.BbcodeEnabled = true;
 				x_i.Text = "[i][char=1D4B3][char=";
 
 				int unicode_char = 2080;
 
-				if (i >= 9)
-				{
+				if (i >= 9) {
 					x_i.Text += "2081][char=" + (unicode_char + i - 9) + "][/i]";
 
 				}
-				else
-				{
+				else {
 					x_i.Text += unicode_char + (i + 1) + "][/i]";
 				}
 

@@ -9,40 +9,32 @@ using System.Runtime.InteropServices;
 
 
 //[Serializable]
-public class Drob
-{
+public class Drob {
     public static Drob Zero = new Drob(0, 1);
-    
+
     private bool is_sokr = false;
     private BigInteger top = 0;
     private BigInteger down = 1;
 
-    public BigInteger Top
-    {
-        get
-        {
+    public BigInteger Top {
+        get {
             //NormZnak();
             Sokr();
             return top;
         }
-        set
-        {
+        set {
             this.top = value;
         }
     }
 
-    public BigInteger Down
-    {
-        get
-        {
+    public BigInteger Down {
+        get {
             //NormZnak();
             Sokr();
             return down;
         }
-        set
-        {
-            if (value == 0)
-            {
+        set {
+            if (value == 0) {
                 throw new DivideByZeroException("down cant be 0");
             }
             this.down = value;
@@ -51,10 +43,8 @@ public class Drob
 
     public Drob() { }
 
-    public Drob(BigInteger top, BigInteger down)
-    {
-        if (down == 0)
-        {
+    public Drob(BigInteger top, BigInteger down) {
+        if (down == 0) {
             throw new DivideByZeroException("down cant be 0");
         }
         this.top = top;
@@ -63,83 +53,67 @@ public class Drob
         NormZnak();
     }
 
-    public Drob(string top, string down)
-    {
-        if (!BigInteger.TryParse(top, out this.top) || !BigInteger.TryParse(down, out this.down))
-        {
+    public Drob(string top, string down) {
+        if (!BigInteger.TryParse(top, out this.top) || !BigInteger.TryParse(down, out this.down)) {
             throw new ArgumentException("cant convert from string to integer.");
         }
-        if (this.down == 0)
-        {
+        if (this.down == 0) {
             throw new DivideByZeroException("down cant be 0");
         }
 
         NormZnak();
     }
 
-    public Drob(Drob d)
-    {
+    public Drob(Drob d) {
         this.top = d.top;
         this.down = d.down;
     }
 
-    public Drob(string str)
-    {
+    public Drob(string str) {
         if (str == null)
             throw new ArgumentException("str is empty");
 
         str = str.Trim();
         if (str == "")
             return;
-            
 
-        if (BigInteger.TryParse(str, out this.top))
-        {
+
+        if (BigInteger.TryParse(str, out this.top)) {
             return;
         }
 
         String[] splited;
         bool is_neg = false;
-        if (str[0] == '-')
-        {
+        if (str[0] == '-') {
             is_neg = true;
             splited = str.Substring(1).Split(new char[] { '.', ',' }).Select(x => x.Trim()).ToArray();
         }
-        else if (str[0] == '+')
-        {
+        else if (str[0] == '+') {
             splited = str.Substring(1).Split(new char[] { '.', ',' }).Select(x => x.Trim()).ToArray();
         }
-        else
-        {
+        else {
             splited = str.Split(new char[] { '.', ',' }).Select(x => x.Trim()).ToArray();
         }
-        if (splited.Length != 2)
-        {
+        if (splited.Length != 2) {
             throw new ArgumentException("not vallid string. too many '.' or ',' .");
         }
 
 
-        if (splited[0] == "")
-        {
+        if (splited[0] == "") {
             top = 0;
         }
-        else
-        {
-            if (splited[0][0] == '-' || splited[0][0] == '+' || !BigInteger.TryParse(splited[0], out this.top))
-            {
+        else {
+            if (splited[0][0] == '-' || splited[0][0] == '+' || !BigInteger.TryParse(splited[0], out this.top)) {
                 throw new ArgumentException("top arguments is invalid");
             }
         }
 
-        if (splited[1] == "")
-        {
+        if (splited[1] == "") {
             down = 1;
         }
-        else
-        {
+        else {
             BigInteger tmp_low;
-            if (splited[1][0] == '-' || splited[1][0] == '+' || !BigInteger.TryParse(splited[1], out tmp_low))
-            {
+            if (splited[1][0] == '-' || splited[1][0] == '+' || !BigInteger.TryParse(splited[1], out tmp_low)) {
                 throw new ArgumentException("down arguments is invalid");
             }
 
@@ -219,14 +193,13 @@ public class Drob
             }
     */
 
-    public void Sokr()
-    {
-        if(is_sokr == true)
+    public void Sokr() {
+        if (is_sokr == true)
             return;
-        
-        NormZnak();  
-       // if(top == 0) {down = 1; return;}
-       
+
+        NormZnak();
+        // if(top == 0) {down = 1; return;}
+
         BigInteger del = Gcd(top, down);
         top /= del;
         down /= del;
@@ -234,17 +207,14 @@ public class Drob
         is_sokr = true;
     }
 
-    public void NormZnak()
-    {
-        if (this.down < 0)
-        {
+    public void NormZnak() {
+        if (this.down < 0) {
             this.top = -this.top;
             this.down = -this.down;
         }
     }
 
-    public override bool Equals(object obj)
-    {
+    public override bool Equals(object obj) {
         if (obj == null || obj is not Drob)
             return false;
 
@@ -253,23 +223,20 @@ public class Drob
         return this == drob;
     }
 
-    public override string ToString()
-    {
+    public override string ToString() {
         this.Sokr();
         return top + "/" + down;
     }
 
-    public static BigInteger Gcd(BigInteger a, BigInteger b)
-    {
+    public static BigInteger Gcd(BigInteger a, BigInteger b) {
         a = BigInteger.Abs(a);
         b = BigInteger.Abs(b);
 
-        if(a < b) {
+        if (a < b) {
             (b, a) = (a, b);
         }
 
-        while (b > 0)
-        {
+        while (b > 0) {
             a %= b;
             (b, a) = (a, b);
         }
@@ -277,94 +244,81 @@ public class Drob
         return a;
     }
 
-    public override int GetHashCode()
-    {
+    public override int GetHashCode() {
         this.Sokr();
         return HashCode.Combine(top, down);
     }
 
-    public static Drob operator +(Drob l, Drob r)
-    {
+    public static Drob operator +(Drob l, Drob r) {
         Drob ret = new Drob();
 
-        if (l.down == r.down)
-        {
+        if (l.down == r.down) {
             ret.top = l.top + r.top;
             ret.down = l.down;
         }
-        else
-        {
+        else {
             ret.top = l.top * r.down + r.top * l.down;
             ret.down = l.down * r.down;
         }
 
-        if(ret.top == 0) {ret.down = 1;}
+        if (ret.top == 0) { ret.down = 1; }
         ret.is_sokr = false;
         return ret;
     }
 
-    public static Drob operator -(Drob l, Drob r)
-    {
+    public static Drob operator -(Drob l, Drob r) {
         Drob ret = new Drob();
 
-        if (l.down == r.down)
-        {
+        if (l.down == r.down) {
             ret.top = l.top - r.top;
             ret.down = l.down;
         }
-        else
-        {
+        else {
             ret.top = l.top * r.down - r.top * l.down;
             ret.down = l.down * r.down;
         }
 
-        if(ret.top == 0) {ret.down = 1;}
+        if (ret.top == 0) { ret.down = 1; }
         ret.is_sokr = false;
         return ret;
     }
 
-    public static Drob operator *(Drob l, Drob r)
-    {
+    public static Drob operator *(Drob l, Drob r) {
         Drob ret = new Drob();
 
         ret.top = l.top * r.top;
         ret.down = l.down * r.down;
 
-        if(ret.top == 0) {ret.down = 1;}
+        if (ret.top == 0) { ret.down = 1; }
         ret.is_sokr = false;
         return ret;
     }
 
-    public static Drob operator /(Drob l, Drob r)
-    {
+    public static Drob operator /(Drob l, Drob r) {
         if (r.top == 0)
             throw new DivideByZeroException("right argument was zero.");
 
         Drob ret = new Drob();
 
-        if (l.top == r.top)
-        {
+        if (l.top == r.top) {
             ret.top = r.down;
             ret.down = l.down;
         }
-        else if (l.down == r.down)
-        {
+        else if (l.down == r.down) {
             ret.top = l.top;
             ret.down = r.top;
         }
-        else
-        {
+        else {
             ret.top = l.top * r.down;
             ret.down = l.down * r.top;
         }
 
-        if(ret.top == 0) {ret.down = 1;}
+        if (ret.top == 0) { ret.down = 1; }
         ret.is_sokr = false;
         return ret;
     }
 
-    public static bool operator ==(Drob l, Drob r)
-    {
+    public static bool operator ==(Drob l, Drob r) {
         if (l is null && r is null)
             return true;
         if (l is null || r is null)
@@ -373,80 +327,66 @@ public class Drob
         l.NormZnak();
         r.NormZnak();
 
-        if (l.top == r.top && l.down == r.down)
-        {
+        if (l.top == r.top && l.down == r.down) {
             return true;
         }
 
         l.Sokr();
         r.Sokr();
 
-        if (l.top == r.top && l.down == r.down)
-        {
+        if (l.top == r.top && l.down == r.down) {
             return true;
         }
-        else
-        {
+        else {
             return false;
         }
     }
 
-    public static bool operator !=(Drob l, Drob r)
-    {
+    public static bool operator !=(Drob l, Drob r) {
         l.NormZnak();
         r.NormZnak();
 
-        if (l.top == r.top && l.down == r.down)
-        {
+        if (l.top == r.top && l.down == r.down) {
             return false;
         }
 
         l.Sokr();
         r.Sokr();
 
-        if (l.top == r.top && l.down == r.down)
-        {
+        if (l.top == r.top && l.down == r.down) {
             return false;
         }
-        else
-        {
+        else {
             return true;
         }
     }
 
-    public static implicit operator Drob(int v)
-    {
+    public static implicit operator Drob(int v) {
         return new Drob(v, 1);
     }
 
-    public static implicit operator Drob(long v)
-    {
+    public static implicit operator Drob(long v) {
         return new Drob(v, 1);
     }
 
-    public static implicit operator Drob((int top, int down) d)
-    {
+    public static implicit operator Drob((int top, int down) d) {
         return new Drob(d.top, d.down);
     }
 
-    public static implicit operator Drob((long top, long down) d)
-    {
+    public static implicit operator Drob((long top, long down) d) {
         return new Drob(d.top, d.down);
     }
 
-    public static implicit operator (string, string)(Drob d)
-    {
+    public static implicit operator (string, string)(Drob d) {
         d.Sokr();
         return (d.top.ToString(), d.down.ToString());
     }
 
-    public static Drob operator -(Drob d)
-    {
+    public static Drob operator -(Drob d) {
         return new Drob(-d.top, d.down); ;
     }
 
-    public static bool operator <(Drob l, Drob r)
-    {
+    public static bool operator <(Drob l, Drob r) {
         if (l.Down == r.Down)
             return l.top < r.top;
 
@@ -465,8 +405,7 @@ public class Drob
         return tmp_l.top < tmp_r.top;
     }
 
-    public static bool operator >(Drob l, Drob r)
-    {
+    public static bool operator >(Drob l, Drob r) {
         if (l.Down == r.Down)
             return l.top > r.top;
 
